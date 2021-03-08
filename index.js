@@ -12,7 +12,6 @@ while (!game.setCategory(category)) {
     category = prompt('Choose categories: movies or books ');
 }
 
-
 console.clear();
 game.play();
 
