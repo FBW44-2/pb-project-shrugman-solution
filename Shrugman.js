@@ -107,15 +107,6 @@ class Shrugman {
         if (!this.currentWord.toLowerCase().includes(letter)) {
             this.attempts--;
         }
-
-        // console.log(`\n`, this.renderWord(), `\n`);
-        // Update shrugman only if the letter is not included in the word
-        // console.log(chalk.bold.magenta(`\n${this.renderShrugMan()}\n`));
-
-        // return {
-        //     word: this.renderWord(),
-        //     shrugman: this.renderShrugMan()
-        // };
     }
 
     isWinning() {
