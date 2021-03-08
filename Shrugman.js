@@ -3,7 +3,10 @@ class Shrugman {
         this.category = 'movies';
         this.gameOn = false;
         this.knownLettersList = [];
-        this.playedWords = [];
+        this.playedWords = {
+            movies: [],
+            books: []
+        };
         this.attempts = 10;
         this.stats = [];
         this.options = {
@@ -51,12 +54,18 @@ class Shrugman {
         let randomIndex = Math.floor(Math.random() * this.options[category].length);
         let secretWord = this.options[category][randomIndex];
 
-        while (this.playedWords.includes(secretWord)) {
+        // They have played all words in this category
+        // Easiest is to reset the list of played words
+        if (this.playedWords[this.category] === this.options[this.category]) {
+            this.playedWords[this.category] = [];
+        }
+
+        while (this.playedWords[this.category].includes(secretWord)) {
             randomIndex = Math.floor(Math.random() * this.options[category].length);
             secretWord = this.options[category][randomIndex];
         }
 
-        this.playedWords.push(secretWord);
+        this.playedWords[this.category].push(secretWord);
 
         return secretWord;
     }
