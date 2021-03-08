@@ -47,18 +47,18 @@ class Shrugman {
         return true;
     }
 
-    getGuess(category) {
+    getSecretWord(category) {
         let randomIndex = Math.floor(Math.random() * this.options[category].length);
-        let guess = this.options[category][randomIndex];
+        let secretWord = this.options[category][randomIndex];
 
-        while (this.playedWords.includes(guess)) {
+        while (this.playedWords.includes(secretWord)) {
             randomIndex = Math.floor(Math.random() * this.options[category].length);
-            guess = this.options[category][randomIndex];
+            secretWord = this.options[category][randomIndex];
         }
 
-        this.playedWords.push(guess);
+        this.playedWords.push(secretWord);
 
-        return guess;
+        return secretWord;
     }
 
     renderWord() {
@@ -83,10 +83,9 @@ class Shrugman {
 
     play() {
         this.gameOn = true;
-        this.currentWord = this.getGuess(this.category);
+        this.currentWord = this.getSecretWord(this.category);
         // Only for debugging
         // console.log(this.currentWord, 'this.currentWord');
-        // console.log(`\n`, this.renderWord(), `\n`);
     }
 
     validateGuess(letter) {
