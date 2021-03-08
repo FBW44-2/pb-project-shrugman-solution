@@ -77,6 +77,8 @@ class Shrugman {
 
     renderShrugMan() {
         const shrugEmoji = '¯\\_(:/)_/¯'.split('');
+        // Slack emoji, but it has 9 characters instead of 10
+        // const shrugEmoji = '¯\\_(ツ)_/¯'.split('');
 
         return shrugEmoji.slice(0, shrugEmoji.length - this.attempts).join('');
     }
