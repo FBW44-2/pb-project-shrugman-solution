@@ -13,8 +13,6 @@ while (!game.setCategory(category)) {
 }
 
 console.clear();
-game.play();
-
 console.log(`\n${game.renderWord()}\n`);
 console.log(chalk.bold.magenta(`\n${game.renderShrugMan()}\n`));
 
@@ -26,26 +24,26 @@ while (game.isGameOn()) {
         guess = prompt('Guess a letter ');
     }
 
-    console.clear();
     game.update(guess);
+    console.clear();
     console.log(`\n${game.renderWord()}\n`);
     console.log(chalk.bold.magenta(`\n${game.renderShrugMan()}\n`));
 
     if (!game.isGameOn()) {
-        if (game.isWinning()) {
-            game.updateStats(true);
+        const isWinning = game.isWinning();
+        game.updateStats(isWinning);
+
+        if (isWinning) {
             console.log('Hey you are a winner');
         } else {
-            game.updateStats(false);
             console.log('Better luck next time: ', game.currentWord);
         }
 
         let anotherRound = prompt('Another round (y)? ');
 
         if (anotherRound === 'y') {
-            game.resetGame()
+            game.reset()
             console.clear();
-            game.play();
             console.log(`\n${game.renderWord()}\n`);
             console.log(chalk.bold.magenta(`\n${game.renderShrugMan()}\n`));
         } else {
@@ -56,4 +54,4 @@ while (game.isGameOn()) {
     }
 }
 
-console.log(chalk.italic.yellow(`-- THE END --`));
+console.log(chalk.yellow(`-- THE END --`));

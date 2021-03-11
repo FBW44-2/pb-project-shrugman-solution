@@ -1,13 +1,13 @@
 class Shrugman {
     constructor() {
-        this.category = 'movies';
-        this.gameOn = false;
+        this.gameOn = true;
         this.knownLettersList = [];
         this.playedWords = {
             movies: [],
             books: []
         };
-        this.attempts = 10;
+        this.shugmanEmoji = '¯\\_(:/)_/¯'
+        this.attempts = this.shugmanEmoji.length;
         this.stats = [];
         this.options = {
             movies: [
@@ -46,9 +46,15 @@ class Shrugman {
                 'Harry Potter and the Goblet of Fire'
             ]
         }
-        this.currentWord = null;
+
+        this.category = Object.keys(this.options)[0];
+        this.currentWord = this.getSecretWord(this.category);
+        // Only for debugging
+        // console.log(this.currentWord, 'this.currentWord');
     }
 
+    // Use this function to set category
+    // return true if category was set successfully
     setCategory(category) {
         if (!this.options.hasOwnProperty(category)) {
             return false;
@@ -59,6 +65,7 @@ class Shrugman {
         return true;
     }
 
+    // Find a word to guess
     getSecretWord(category) {
         let randomIndex = Math.floor(Math.random() * this.options[category].length);
         let secretWord = this.options[category][randomIndex];
@@ -79,6 +86,29 @@ class Shrugman {
         return secretWord;
     }
 
+    // Validate guess
+    validateGuess(letter) {
+        if (!letter) {
+            return false;
+        }
+
+        if (letter.length !== 1) {
+            return false;
+        }
+
+        return !this.knownLettersList.includes(letter.toLowerCase());
+    }
+
+    // Update game and render screens
+    update(letter) {
+        this.knownLettersList.push(letter.toLowerCase());
+
+        // Lower only if the letter is not included in the word
+        if (!this.currentWord.toLowerCase().includes(letter)) {
+            this.attempts--;
+        }
+    }
+
     renderWord() {
         const characters = this.currentWord.split('');
 
@@ -94,45 +124,12 @@ class Shrugman {
     }
 
     renderShrugMan() {
-        const shrugEmoji = '¯\\_(:/)_/¯'.split('');
-        // Slack emoji, but it has 9 characters instead of 10
-        // const shrugEmoji = '¯\\_(ツ)_/¯'.split('');
+        const shrugEmoji = this.shugmanEmoji.split('');
 
         return shrugEmoji.slice(0, shrugEmoji.length - this.attempts).join('');
     }
 
-    play() {
-        this.gameOn = true;
-        this.currentWord = this.getSecretWord(this.category);
-        // Only for debugging
-        // console.log(this.currentWord, 'this.currentWord');
-    }
-
-    validateGuess(letter) {
-        if (!letter) {
-            return false;
-        }
-
-        if (letter.length !== 1) {
-            return false;
-        }
-
-        return !this.knownLettersList.includes(letter.toLowerCase());
-    }
-
-    update(letter) {
-        this.knownLettersList.push(letter.toLowerCase());
-
-        // Lower only if the letter is not included in the word
-        if (!this.currentWord.toLowerCase().includes(letter)) {
-            this.attempts--;
-        }
-    }
-
-    isWinning() {
-        return this.currentWord === this.renderWord()
-    }
-
+    // Stats
     updateStats(gameResult) {
         this.stats.push({
             word: this.currentWord,
@@ -144,6 +141,11 @@ class Shrugman {
         return this.stats.map((stat, index) => {
             return `${index + 1}. ${stat.word} - ${stat.result}`;
         }).join('\n');
+    }
+
+    // Check game state (is the user winning or our out attempts)
+    isWinning() {
+        return this.currentWord === this.renderWord();
     }
 
     isGameOn() {
@@ -158,10 +160,11 @@ class Shrugman {
         return true;
     }
 
-    resetGame() {
+    // Reset game
+    reset() {
         this.knownLettersList = [];
-        this.attempts = 10;
-        this.currentWord = null;
+        this.attempts = this.shugmanEmoji.length;
+        this.currentWord = this.getSecretWord(this.category);
     }
 }
 
