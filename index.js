@@ -1,9 +1,10 @@
+const options = require('./data'):
 const prompt = require('prompt-sync')({ sigint: true });
 const chalk = require('chalk');
 const Shrugman = require('./Shrugman');
 
 // Start a new game
-const game = new Shrugman();
+const game = new Shrugman(options);
 // Cleanup screen and display word
 console.clear();
 // Select category
