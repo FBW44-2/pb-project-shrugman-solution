@@ -21,18 +21,31 @@ Once the game is over, print a list of all games played, and whether they were a
 
 Without adding the extra feature for asking for another round, this list will always have 1 item.
 
-## Extra Features
-
-- Make use of [`console.clear()`](https://www.geeksforgeeks.org/node-js-console-clear-method/), so we only see the most recent state of the word and the shrugman emoji.
-- Add guess categories: The user can have mutliple categories to choose from. We already have movies, let's add also books, or quotes. If they choose movies, we will ask them to guess a movie title. If they choose books, we will ask them to guess a book title.
-- Ask the user to play another round with the same category.
-
 ## Requirements
 
 - Use class: Ideally your class is unaware of the `prompt` or the `console`.
 - Use `require` to split into separate files: you should have at least 2 files, one main file and one where the class will live.
 - All changes re pushed to your Github repo.
 
+## Extra Features
+
+- Make use of [`console.clear()`](https://www.geeksforgeeks.org/node-js-console-clear-method/), so we only see the most recent state of the word and the shrugman emoji.
+- Add guess categories: The user can have mutliple categories to choose from. We already have movies, let's add also books, or quotes. If they choose movies, we will ask them to guess a movie title. If they choose books, we will ask them to guess a book title.
+- Ask the user to play another round with the same category.
+
 ### Optional requirements
 
-- Use Jest to write tests your class
+- Use Jest to write tests your class.
+
+
+## Examples
+
+Take a look at the examples:
+
+When the user wins a round: 
+
+![example win](example.gif)
+
+When the user loses a round: 
+
+![example loss](example-loss.gif)
